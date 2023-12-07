@@ -10,7 +10,7 @@ use std::time::Instant;
 // Using the heap is not ideal but I wanted to try Boxes. I think defining a
 // and b as 'static vars would be more performant
 fn _set_nums(num: u32, a: &mut Box<Option<u32>>, b: &mut u32) {
-    if **a == None {
+    if (**a).is_none() {
         **a = Some(num);
     }
     *b = num;
@@ -46,7 +46,7 @@ enum TokenParsedResult {
 }
 
 fn _match_number_word(str: &str) -> TokenParsedResult {
-    let words = vec![
+    let words = [
         "one", "two", "three", "four", "five", "six", "seven", "eight", "nine",
     ];
     for (i, word) in words.iter().enumerate() {
@@ -64,7 +64,7 @@ fn _match_number_word(str: &str) -> TokenParsedResult {
     TokenParsedResult::NoMatch
 }
 
-// seraches for digits and number names
+// searches for digits and number names
 fn read_alpha(file: &str) -> Result<u32> {
     let file = File::open(file)?;
     let mut buf_reader = BufReader::new(file);
@@ -103,7 +103,7 @@ fn read_alpha(file: &str) -> Result<u32> {
                     }
                 };
                 // break loop
-                if acc.len() == 0 {
+                if acc.is_empty() {
                     break;
                 }
             }
