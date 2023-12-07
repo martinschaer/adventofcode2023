@@ -1,10 +1,11 @@
-use log::{debug, error, info};
+use log::debug;
 use std::env;
 use std::fs::File;
 use std::io::prelude::*;
 use std::io::BufReader;
 use std::io::Result;
-use std::time::Instant;
+
+use adventofcode2023::run;
 
 // This function is an exercise of modularising duplicated.
 // Using the heap is not ideal but I wanted to try Boxes. I think defining a
@@ -117,22 +118,6 @@ fn read_alpha(file: &str) -> Result<u32> {
     Ok(sum)
 }
 
-// executes a function and prints the result and the elapsed time
-// TODO: move this to a place to be reused
-fn _exec(fn_name: String, f: fn(&str) -> Result<u32>, file_path: &str) {
-    let now = Instant::now();
-    match f(file_path) {
-        Ok(result) => {
-            println!("Result {}: {}", fn_name, result);
-            info!("took: {}ms", now.elapsed().as_millis());
-        }
-        Err(err) => {
-            error!("Error: {}", err);
-            std::process::exit(1);
-        }
-    };
-}
-
 fn main() {
     // remove timestamp from logs
     env_logger::builder().format_timestamp(None).init();
@@ -145,8 +130,8 @@ fn main() {
     });
 
     // execute functions
-    _exec(String::from("digits"), read_digits, file_path);
-    _exec(String::from("alpha"), read_alpha, file_path);
+    run(String::from("digits"), read_digits, file_path);
+    run(String::from("alpha"), read_alpha, file_path);
 
     std::process::exit(0);
 }
