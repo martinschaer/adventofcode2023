@@ -5,17 +5,17 @@
 How to run each excercise:
 
 ```sh
-cargo run --example day01 ./examples/inputs/day01
+cargo run --bin day01 ./inputs/day01.txt
 
 # with info logs
-RUST_LOG=info cargo run --example day01 ./examples/inputs/day01
+RUST_LOG=info cargo run day01 ./inputs/day01.txt
 
 # with debug logs
-RUST_LOG=debug cargo run --example day01 ./examples/inputs/day01
+RUST_LOG=debug cargo run day01 ./inputs/day01.txt
 ```
 
 How to build everything:
 
 ```sh
-cargo build --release --bins --examples
+cargo build --release
 ```
